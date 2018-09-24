@@ -1,0 +1,9 @@
+#!/usr/bin/make -f
+
+#export DH_VERBOSE = 1
+
+%:
+	dh $@ --with-systemd
+
+override_dh_gencontrol:
+	dh_gencontrol -- -Vdist:Depends=""

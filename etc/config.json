@@ -1,0 +1,19 @@
+{
+  "http": {
+    "port": ":8081",
+    "WriteTimeout": 15,
+    "ReadTimeout": 15,
+    "IdleTimeout": 60
+  },
+  "storage": {
+    "type": "postgresql",
+    "url": "postgres://dmarc:dmarc@127.0.0.1:5432/dmarc?sslmode=disable"
+  },
+  "log": {
+    "level": "info"
+  },
+  "directory": {
+    "path": "/dmarcreports",
+    "interval": 30
+  }
+}

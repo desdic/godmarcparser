@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta name="generator" content="dmarc_report" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/static/style.css" />
+	<title>DMARC report {{.Report.ReportID}}</title>
+</head>
+<body>
+
+<h1>Report: {{.Report.ReportID}}<h1>
+Domain: {{.Report.PolicyDomain}}</br>
+Orgnanisation: {{.Report.ReportOrg}}</br>
+Email: {{.Report.ReportEmail}}</br>
+Period: {{.Report.ReportBegin}} - {{.Report.ReportEnd}}</br>
+Count: {{.Report.Count}}</br>
+DKIM result: {{.Report.DKIMResult}}</br>
+SPF result: {{.Report.SPFResult}}</br>
+
+<table class="blueTable">
+<thead>
+<tr>
+	<th>IP</th>
+	<th>Count</th>
+	<th>EvalDisposition</th>
+	<th>EvalSPFAlign</th>
+	<th>EvalDKIMAalign</th>
+	<th>Reason</th>
+	<th>DKIMDomain</th>
+	<th>DKIMResult</th>
+	<th>SPFDomain</th>
+	<th>SPFResult</th>
+	<th>FromHeader</th>
+</tr>
+</thead>
+
+<tbody>
+{{range .Rows}}
+<tr>
+	<td><a href="/analyse/{{$.Report.PolicyDomain}}/{{.SourceIP}}">{{.SourceIP}}</a></td>
+	<td>{{.Count}}</td>
+
+{{- if eq .EvalDisposition "none" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}{{.EvalDisposition}}</td>
+{{- if eq .EvalSPFAlign "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}{{.EvalSPFAlign}}</td>
+{{- if eq .EvalDKIMAalign "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}{{.EvalDKIMAalign}}</td>
+	<td>{{.Reason}}</td>
+	<td>{{.DKIMDomain}}</td>
+{{- if eq .DKIMResult "neutral" -}}
+<td bgcolor="yellow">
+{{- else if eq .DKIMResult "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}{{.DKIMResult}}</td>
+	<td>{{.SPFDomain}}</td>
+{{- if eq .SPFResult "neutral" -}}
+<td bgcolor="yellow">
+{{- else if eq .SPFResult "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}{{.SPFResult}}</td>
+	<td>{{.IdentifierHFrom}}</td>
+</tr>
+{{end}}
+
+</tbody>
+</table>
+
+</body>
+</html>

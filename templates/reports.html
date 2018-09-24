@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta name="generator" content="dmarc_report" />
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="/static/style.css" />
+	<title>DMARC report</title>
+</head>
+<body>
+
+<h1>Reports (Page {{ .CurPage }} of {{ .TotalPages }})<h1>
+<table class="blueTable">
+<thead>
+<tr>
+<th>ID</th>
+<th>Domain</th>
+<th>Org</th>
+<th>Email</th>
+<th>Begin</th>
+<th>End</th>
+<th>Count</th>
+<th>DKIM result</th>
+<th>SPF result</th>
+</tr>
+</thead>
+
+<tfoot>
+<tr>
+<td colspan="9">
+	<div class="links">{{ if gt .CurPage 1  }}<a href="?page=1">First</a>{{ end }} {{ if gt .LastPage 0 }}<a href="?page={{.LastPage}}">&laquo;</a>{{ end }}{{ range .Pages }} <a{{ if eq . $.CurPage }} class="active"{{ end }} href="?page={{.}}">{{ . }}</a> {{ end }} {{ if le .CurPage .TotalPages }} {{ if ne .CurPage .TotalPages  }} <a href="?page={{.NextPage}}">&raquo;</a>{{ end }} {{ if ne .CurPage .TotalPages   }} <a href="?page={{.TotalPages}}">Last({{.TotalPages}})</a> {{ end  }} {{ end  }}</div>
+</td>
+</tr>
+</tfoot>
+
+<tbody>
+{{range .Reports}}
+<tr>
+<td><a href="/report/{{.ID}}">{{.ReportID}}</a></td>
+<td>{{- .PolicyDomain -}}</td>
+<td>{{- .ReportOrg -}}</td>
+<td>{{- .ReportEmail -}}</td>
+<td>{{- .ReportBegin -}}</td>
+<td>{{- .ReportEnd -}}</td>
+<td>{{- .Count -}}</td>
+{{- if eq .DKIMResult "neutral" -}}
+<td bgcolor="yellow">
+{{- else if eq .DKIMResult "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}
+{{- .DKIMResult -}}
+</td>
+{{- if eq .SPFResult "neutral" -}}
+<td bgcolor="yellow">
+{{- else if eq .SPFResult "pass" -}}
+<td>
+{{- else -}}
+<td bgcolor="red">
+{{- end}}
+{{- .SPFResult -}}
+</td>
+</tr>
+{{- end -}}
+</tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,14 @@
+[Unit]
+Description=godmarcparser
+After=network-online.target
+
+[Service]
+PIDFile=/var/run/godmarcparser.pid
+ExecStart=/usr/sbin/godmarcparser
+User=root
+Group=root
+WorkingDirectory=/etc/godmarcparser/
+
+[Install]
+WantedBy=multi-user.target
+

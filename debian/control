@@ -1,0 +1,11 @@
+Source: godmarcreport
+Section: main
+Priority: extra
+Maintainer: Kim Gert Nielsen
+Build-Depends: debhelper (>= 9.0.0), golang-go (>= 2:1.09), git, dh-systemd (>=1.5) | bash
+Standards-Version: 3.9.4
+
+Package: godmarcreport
+Architecture: amd64
+Depends: ${dist:Depends}
+Description: dmarc parser written in Golang

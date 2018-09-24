@@ -1,0 +1,19 @@
+{
+  "http": {
+    "port": "",
+    "WriteTimeout": 1,
+    "ReadTimeout": 1,
+    "IdleTimeout": 1
+  },
+  "storage": {
+    "type": "postgresql",
+    "url": "postgres://dmarc:dmarc@127.0.0.1:5432/dmarc?sslmode=disable"
+  },
+  "log": {
+    "level": "info"
+  },
+  "directory": {
+    "path": "/files",
+    "interval": 0
+  }
+}

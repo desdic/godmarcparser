@@ -1,0 +1,5 @@
+godmarcreport (1.0.0) xenial; urgency=low
+
+  * dmarc parser written on golang
+
+ -- Kim Nielsen <kn@insecurity.dk>  Wed, 26 Sep 2018 07:57:00 +0200
