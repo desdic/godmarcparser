@@ -1,5 +1,7 @@
 # DMARC report parser
 
+[![Build Status](https://travis-ci.org/desdic/godmarcparser.svg?branch=master)](https://travis-ci.org/desdic/godmarcparser)
+
 This project is very much based on [techsneezes dmarcts-report-parser](https://github.com/techsneeze/dmarcts-report-parser) but with a few modifications.
 
 ## Configuration
