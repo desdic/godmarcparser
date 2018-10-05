@@ -1,6 +1,7 @@
 # DMARC report parser
 
 [![Build Status](https://travis-ci.org/desdic/godmarcparser.svg?branch=master)](https://travis-ci.org/desdic/godmarcparser)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 This project is very much based on [techsneezes dmarcts-report-parser](https://github.com/techsneeze/dmarcts-report-parser) but with a few modifications.
 
