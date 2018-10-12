@@ -152,14 +152,9 @@ type Feedback struct {
 	Records         []record        `xml:"record"`
 }
 
-// XML is a wrapper
-type XML struct {
-	Feedback Feedback `xml:">feedback"`
-}
-
 // Read a dmarc xml report
 func Read(b []byte) (Feedback, error) {
-	var f XML
+	var f Feedback
 
 	s := string(b[:])
 
@@ -172,5 +167,5 @@ func Read(b []byte) (Feedback, error) {
 	if err := xml.Unmarshal([]byte(s), &f); err != nil {
 		return Feedback{}, err
 	}
-	return f.Feedback, nil
+	return f, nil
 }
