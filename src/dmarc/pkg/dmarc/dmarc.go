@@ -3,8 +3,12 @@ package dmarc
 import (
 	"bytes"
 	"encoding/xml"
+	"regexp"
 	"time"
 )
+
+var brokenschema = regexp.MustCompile(`\<xs:schema[^>]*>`)
+var matchschema = regexp.MustCompile(`\<\/xs:schema[^>]*>`)
 
 // Content is the structure for processing data
 type Content struct {
@@ -148,11 +152,25 @@ type Feedback struct {
 	Records         []record        `xml:"record"`
 }
 
+// XML is a wrapper
+type XML struct {
+	Feedback Feedback `xml:">feedback"`
+}
+
 // Read a dmarc xml report
 func Read(b []byte) (Feedback, error) {
-	var f Feedback
-	if err := xml.Unmarshal(b, &f); err != nil {
+	var f XML
+
+	s := string(b[:])
+
+	// It seems that some vendors has a broken schema tag added. Its not closed and should not be there
+	// So this is a hack to remove it
+	if !matchschema.MatchString(s) {
+		s = brokenschema.ReplaceAllString(string(b[:]), "")
+	}
+
+	if err := xml.Unmarshal([]byte(s), &f); err != nil {
 		return Feedback{}, err
 	}
-	return f, nil
+	return f.Feedback, nil
 }
