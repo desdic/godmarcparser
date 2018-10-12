@@ -4,7 +4,7 @@ default: all
 GOC=go
 DEP=dep
 GOPATH:=$(shell pwd)
-VERSION=1.0.0
+VERSION=1.0.1
 REVISION=$(shell git rev-parse --short HEAD)
 BUILDDATE=$(shell date +'%Y%m%d')
 FLAGS=-ldflags="-X dmarc/pkg/version.version=${VERSION}-${REVISION} -X dmarc/pkg/version.builddate=${BUILDDATE}"
