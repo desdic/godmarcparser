@@ -100,14 +100,14 @@ func (h *Postgresql) ReadReport(ctx context.Context, id int64) (rs dmarc.Rows, e
         		r.report_id,
         		r.report_email,
         		r.report_extra_contact_info,
-        		r.policy_adkim,
-        		r.policy_aspf,
+        		lower(r.policy_adkim),
+        		lower(r.policy_aspf),
         		r.policy_p,
         		r.policy_sp,
         		r.policy_pct,
         		SUM(rr.row_count) AS rowcount,
-        		MIN(rr.dkimresult) AS dkimresult,
-        		MIN(rr.spfresult) AS spfresult
+        		MIN(lower(rr.dkimresult)) AS dkimresult,
+        		MIN(lower(rr.spfresult)) AS spfresult
 		 FROM   report AS r
 		 	LEFT JOIN reportrow AS rr ON r.id = rr.rid
 		 		WHERE r.id = $1
@@ -158,13 +158,13 @@ func (h *Postgresql) ReadReport(ctx context.Context, id int64) (rs dmarc.Rows, e
 			rr.row_ip,
 			rr.row_count,
 			rr.eval_disposition,
-			rr.eval_spf_align,
-			rr.eval_dkim_align,
+			lower(rr.eval_spf_align),
+			lower(rr.eval_dkim_align),
 			rr.reason,
-			rr.dkimdomain,
-			rr.dkimresult,
-			rr.spfdomain,
-			rr.spfresult,
+			lower(rr.dkimdomain),
+			lower(rr.dkimresult),
+			lower(rr.spfdomain),
+			lower(rr.spfresult),
 			rr.identifier_hfrom
 		FROM reportrow rr
 		WHERE rr.rid = $1`)
@@ -223,19 +223,19 @@ func (h *Postgresql) ReadReports(ctx context.Context, offset int, pagesize int) 
 				r.id,
         		r.report_begin,
         		r.report_end,
-        		r.policy_domain,
+        		lower(r.policy_domain),
         		r.report_org,
         		r.report_id,
         		r.report_email,
         		r.report_extra_contact_info,
-        		r.policy_adkim,
-        		r.policy_aspf,
-        		r.policy_p,
-        		r.policy_sp,
+        		lower(r.policy_adkim),
+        		lower(r.policy_aspf),
+        		lower(r.policy_p),
+        		lower(r.policy_sp),
         		r.policy_pct,
         		SUM(rr.row_count) AS rowcount,
-        		MIN(rr.dkimresult) AS dkimresult,
-        		MIN(rr.spfresult) AS spfresult,
+        		MIN(lower(rr.dkimresult)) AS dkimresult,
+        		MIN(lower(rr.spfresult)) AS spfresult,
 				(SELECT COUNT(*) FROM report) as items
 		 FROM   report AS r
 		 LEFT JOIN reportrow AS rr ON r.id = rr.rid

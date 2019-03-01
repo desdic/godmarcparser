@@ -2,7 +2,7 @@
 default: all
 
 GOC=go
-VERSION=1.0.2
+VERSION=1.0.3
 REVISION=$(shell git rev-parse --short HEAD)
 BUILDDATE=$(shell date +'%Y%m%d')
 FLAGS=-ldflags="-X github.com/desdic/godmarcparser/version.version=${VERSION}-${REVISION} -X github.com/desdic/godmarcparser/version.builddate=${BUILDDATE}"
