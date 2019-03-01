@@ -1,3 +1,9 @@
+godmarcreport (1.0.3) xenial; urgency=low
+
+  * Moved from dep to go mod
+
+ -- Kim Nielsen <kn@insecurity.dk>  Fri, 01 Mar 2019 17:35:00 +0200
+
 godmarcreport (1.0.0) xenial; urgency=low
 
   * dmarc parser written on golang
