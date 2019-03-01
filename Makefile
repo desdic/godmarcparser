@@ -2,26 +2,24 @@
 default: all
 
 GOC=go
-DEP=dep
-GOPATH:=$(shell pwd)
-VERSION=1.0.1
+VERSION=1.0.2
 REVISION=$(shell git rev-parse --short HEAD)
 BUILDDATE=$(shell date +'%Y%m%d')
-FLAGS=-ldflags="-X dmarc/pkg/version.version=${VERSION}-${REVISION} -X dmarc/pkg/version.builddate=${BUILDDATE}"
+FLAGS=-ldflags="-X github.com/desdic/godmarcparser/version.version=${VERSION}-${REVISION} -X github.com/desdic/godmarcparser/version.builddate=${BUILDDATE}"
 PACKAGE = godmarcparser
 
 all: clean build
 
-build: bin/${PACKAGE}
+build: ${PACKAGE}
 
 test:
-	CGO_ENABLED=1 GOPATH=$(GOPATH) $(GOC) test -race $(FLAGS) ./...
+	CGO_ENABLED=1 $(GOC) test -race $(FLAGS) ./...
 
 cover:
-	CGO_ENABLED=1 GOPATH=$(GOPATH) $(GOC) test -cover $(FLAGS) ./...
+	CGO_ENABLED=1 $(GOC) test -cover $(FLAGS) ./...
 
-bin/${PACKAGE}:
-	GOPATH=$(GOPATH) $(GOC) build $(FLAGS) -o $@ ./src/dmarc/cmd/http/*.go
+${PACKAGE}:
+	$(GOC) build $(FLAGS) -o bin/$@
 
 docker:
 	docker build -f docker/dockerfile -t godmarc:$(VERSION) .

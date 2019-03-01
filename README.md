@@ -31,7 +31,7 @@ This project is very much based on [techsneezes dmarcts-report-parser](https://g
 
 ## Building from source
 
-I haven't tested with golang versions less than 1.9 but it will proberly work. But you should really use 1.10 or above.
+The code should work fine using go 1.11 or higher
 
 ## Bugs/Patches
 
